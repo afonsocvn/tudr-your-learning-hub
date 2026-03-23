@@ -1,16 +1,76 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import HeroSection from "@/components/HeroSection";
+import FindTutorPage from "@/components/FindTutorPage";
+import BecomeTutorPage from "@/components/BecomeTutorPage";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+type PageView = "home" | "find" | "become";
+
+const Index = () => {
+  const [currentPage, setCurrentPage] = useState<PageView>("home");
+
+  const slideVariants = {
+    enterFromRight: { x: "100%", opacity: 0 },
+    enterFromLeft: { x: "-100%", opacity: 0 },
+    center: { x: 0, opacity: 1 },
+    exitToLeft: { x: "-100%", opacity: 0 },
+    exitToRight: { x: "100%", opacity: 0 },
+  };
+
+  const getInitial = (page: PageView) => {
+    if (page === "find") return "enterFromRight";
+    if (page === "become") return "enterFromLeft";
+    return "center";
+  };
+
+  const getExit = (page: PageView) => {
+    if (page === "home" && currentPage === "find") return "exitToLeft";
+    if (page === "home" && currentPage === "become") return "exitToRight";
+    return "exitToLeft";
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="overflow-hidden min-h-screen bg-background">
+      <AnimatePresence mode="wait">
+        {currentPage === "home" && (
+          <motion.div
+            key="home"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={currentPage === "find" ? { x: "-100%", opacity: 0 } : { x: "100%", opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <HeroSection
+              onFindTutor={() => setCurrentPage("find")}
+              onBecomeTutor={() => setCurrentPage("become")}
+            />
+          </motion.div>
+        )}
+        {currentPage === "find" && (
+          <motion.div
+            key="find"
+            initial={{ x: "100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "100%", opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <FindTutorPage onBack={() => setCurrentPage("home")} />
+          </motion.div>
+        )}
+        {currentPage === "become" && (
+          <motion.div
+            key="become"
+            initial={{ x: "-100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "-100%", opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <BecomeTutorPage onBack={() => setCurrentPage("home")} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
