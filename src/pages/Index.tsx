@@ -37,7 +37,7 @@ const Index = () => {
             key="home"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={currentPage === "find" ? { x: "-100%", opacity: 0 } : { x: "100%", opacity: 0 }}
+            exit={{ x: "-50%", opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
           >
             <HeroSection
