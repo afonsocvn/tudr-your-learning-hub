@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { MoveRight, ArrowLeft } from "lucide-react";
 import heroIllustration from "@/assets/hero-illustration.png";
 import tutorTeaching from "@/assets/tutor-teaching.png";
@@ -11,30 +11,46 @@ interface HeroSectionProps {
 
 const HeroSection = ({ onFindTutor, onBecomeTutor }: HeroSectionProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ container: containerRef });
-  const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const progress = useMotionValue(0);
+  const pathLength = useTransform(progress, [0, 1], [0, 1]);
+
+  useEffect(() => {
+    // Initial draw animation on load
+    animate(progress, 0.4, { duration: 3, ease: "easeOut" });
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      const scrollFraction = scrollTop / (scrollHeight - clientHeight);
+      // Map scroll: 0 → 0.4 (already drawn), scroll end → 1
+      const newValue = 0.4 + scrollFraction * 0.6;
+      progress.set(newValue);
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [progress]);
 
   return (
     <div
       ref={containerRef}
       className="h-screen overflow-y-auto snap-y snap-mandatory relative"
     >
-      {/* Pencil Line SVG — diagonal across the page */}
+      {/* Pencil Line SVG — continuous diagonal */}
       <svg
         className="fixed inset-0 w-full h-full z-30 pointer-events-none"
-        viewBox="0 0 1000 2000"
+        viewBox="0 0 1200 2000"
         preserveAspectRatio="none"
       >
         <motion.path
-          d="M-50 -50 Q200 300 350 500 Q500 700 300 1000 Q150 1300 400 1500 Q650 1700 500 2050"
+          d="M100 -20 C250 200 900 350 1100 500 C1300 650 200 800 150 1000 C100 1200 950 1300 1050 1500 C1150 1700 300 1800 200 2020"
           fill="none"
           stroke="hsl(var(--primary))"
           strokeWidth="2"
           strokeLinecap="round"
           strokeDasharray="8 6"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 0.3 }}
-          transition={{ duration: 2, ease: "easeOut" }}
           style={{ pathLength }}
           opacity={0.35}
         />
@@ -54,7 +70,6 @@ const HeroSection = ({ onFindTutor, onBecomeTutor }: HeroSectionProps) => {
       {/* Section 1 — Hero */}
       <section className="h-screen snap-start flex flex-col items-center justify-center px-6 md:px-16 lg:px-28 pt-20">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-20 w-full max-w-7xl">
-          {/* Text */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -71,7 +86,6 @@ const HeroSection = ({ onFindTutor, onBecomeTutor }: HeroSectionProps) => {
             </p>
           </motion.div>
 
-          {/* Illustration */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -90,7 +104,6 @@ const HeroSection = ({ onFindTutor, onBecomeTutor }: HeroSectionProps) => {
           </motion.div>
         </div>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
