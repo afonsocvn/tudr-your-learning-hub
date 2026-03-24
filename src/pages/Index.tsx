@@ -30,19 +30,19 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-hidden">
       <AnimatePresence mode="wait">
         {currentPage === "home" && (
           <motion.div
             key="home"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ x: "-50%", opacity: 0 }}
+            exit={nextPage === "become" ? { x: "50%", opacity: 0 } : { x: "-50%", opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
           >
             <HeroSection
-              onFindTutor={() => setCurrentPage("find")}
-              onBecomeTutor={() => setCurrentPage("become")}
+              onFindTutor={() => { setNextPage("find"); setCurrentPage("find"); }}
+              onBecomeTutor={() => { setNextPage("become"); setCurrentPage("become"); }}
             />
           </motion.div>
         )}
@@ -54,7 +54,7 @@ const Index = () => {
             exit={{ x: "100%", opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
           >
-            <FindTutorPage onBack={() => setCurrentPage("home")} />
+            <FindTutorPage onBack={() => { setNextPage("home"); setCurrentPage("home"); }} />
           </motion.div>
         )}
         {currentPage === "become" && (
@@ -65,7 +65,7 @@ const Index = () => {
             exit={{ x: "-100%", opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
           >
-            <BecomeTutorPage onBack={() => setCurrentPage("home")} />
+            <BecomeTutorPage onBack={() => { setNextPage("home"); setCurrentPage("home"); }} />
           </motion.div>
         )}
       </AnimatePresence>
