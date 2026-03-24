@@ -30,7 +30,7 @@ const Index = () => {
   };
 
   return (
-    <div className="overflow-hidden min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       <AnimatePresence mode="wait">
         {currentPage === "home" && (
           <motion.div
