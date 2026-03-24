@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { MoveRight, ArrowLeft } from "lucide-react";
 import heroIllustration from "@/assets/hero-illustration.png";
