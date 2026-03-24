@@ -8,6 +8,7 @@ type PageView = "home" | "find" | "become";
 
 const Index = () => {
   const [currentPage, setCurrentPage] = useState<PageView>("home");
+  const [nextPage, setNextPage] = useState<PageView>("home");
 
   const slideVariants = {
     enterFromRight: { x: "100%", opacity: 0 },
