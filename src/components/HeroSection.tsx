@@ -1,8 +1,8 @@
-import { useRef, useEffect, useState } from "react";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion } from "framer-motion";
 import { MoveRight, ArrowLeft } from "lucide-react";
 import heroIllustration from "@/assets/hero-illustration.png";
 import tutorTeaching from "@/assets/tutor-teaching.png";
+import ScrollLine from "./ScrollLine";
 
 interface HeroSectionProps {
   onFindTutor: () => void;
@@ -10,63 +10,9 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({ onFindTutor, onBecomeTutor }: HeroSectionProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const progress = useMotionValue(0);
-  const pathLength = useTransform(progress, [0, 1], [0, 1]);
-
-  useEffect(() => {
-    // Initial draw animation on load
-    animate(progress, 0.4, { duration: 3, ease: "easeOut" });
-
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      const { scrollTop, scrollHeight, clientHeight } = container;
-      const scrollFraction = scrollTop / (scrollHeight - clientHeight);
-      // Map scroll: 0 → 0.4 (already drawn), scroll end → 1
-      const newValue = 0.4 + scrollFraction * 0.6;
-      progress.set(newValue);
-    };
-
-    container.addEventListener("scroll", handleScroll, { passive: true });
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, [progress]);
-
   return (
-    <div
-      ref={containerRef}
-      className="h-screen overflow-y-auto snap-y snap-mandatory relative"
-    >
-      {/* Pencil Line SVG — continuous diagonal across both sections */}
-      <svg
-        className="fixed inset-0 w-full h-full z-30 pointer-events-none"
-        viewBox="0 0 1200 2000"
-        preserveAspectRatio="none"
-      >
-        {/* Section 1 path — sweeping diagonal */}
-        <motion.path
-          d="M80 -10 C180 80 400 120 600 200 C800 280 1000 320 1120 420 C1180 480 1100 560 900 620 C700 680 400 740 200 820 C100 860 150 920 300 980"
-          fill="none"
-          stroke="hsl(var(--primary))"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeDasharray="8 6"
-          style={{ pathLength }}
-          opacity={0.3}
-        />
-        {/* Section 2 path — different rhythm, more organic */}
-        <motion.path
-          d="M300 980 C500 1020 700 1000 850 1060 C1000 1120 1100 1180 1050 1260 C1000 1340 800 1380 600 1440 C400 1500 250 1560 200 1650 C150 1740 300 1800 500 1860 C700 1920 900 1960 1100 2020"
-          fill="none"
-          stroke="hsl(var(--primary))"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeDasharray="12 4 4 4"
-          style={{ pathLength }}
-          opacity={0.25}
-        />
-      </svg>
+    <div className="h-screen overflow-y-auto snap-y snap-mandatory relative hero-scroll-container">
+      <ScrollLine />
 
       {/* Header */}
       <nav className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 md:px-12 py-5 bg-foreground/95 backdrop-blur-md">
@@ -75,7 +21,7 @@ const HeroSection = ({ onFindTutor, onBecomeTutor }: HeroSectionProps) => {
           animate={{ opacity: 1, y: 0 }}
           className="text-2xl md:text-3xl font-extrabold text-primary-foreground"
         >
-          Tudr
+          Tudr.
         </motion.h1>
       </nav>
 
@@ -149,7 +95,7 @@ const HeroSection = ({ onFindTutor, onBecomeTutor }: HeroSectionProps) => {
               width={1024}
               height={800}
               loading="lazy"
-              className="relative z-0 w-full h-auto max-h-[70vh] object-contain"
+              className="relative z-0 w-full h-auto max-h-[70vh] object-contain mix-blend-multiply"
             />
           </motion.div>
 
