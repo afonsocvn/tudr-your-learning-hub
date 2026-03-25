@@ -75,7 +75,7 @@ const HeroSection = ({ onFindTutor, onBecomeTutor }: HeroSectionProps) => {
           animate={{ opacity: 1, y: 0 }}
           className="text-2xl md:text-3xl font-extrabold text-primary-foreground"
         >
-          Tudr
+          Tudr.
         </motion.h1>
       </nav>
 
