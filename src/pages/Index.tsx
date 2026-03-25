@@ -58,13 +58,13 @@ const Index = () => {
             <FindTutorPage onBack={() => { setNextPage("home"); setCurrentPage("home"); }} />
           </motion.div>
         )}
-        {currentPage === "become" && (
+         {currentPage === "become" && (
           <motion.div
             key="become"
-            initial={{ x: "-100%", opacity: 0 }}
+            initial={{ x: "100%", opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: "-100%", opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+            exit={{ x: "100%", opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
           >
             <BecomeTutorPage onBack={() => { setNextPage("home"); setCurrentPage("home"); }} />
           </motion.div>
