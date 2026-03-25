@@ -38,21 +38,33 @@ const HeroSection = ({ onFindTutor, onBecomeTutor }: HeroSectionProps) => {
       ref={containerRef}
       className="h-screen overflow-y-auto snap-y snap-mandatory relative"
     >
-      {/* Pencil Line SVG — continuous diagonal */}
+      {/* Pencil Line SVG — continuous diagonal across both sections */}
       <svg
         className="fixed inset-0 w-full h-full z-30 pointer-events-none"
         viewBox="0 0 1200 2000"
         preserveAspectRatio="none"
       >
+        {/* Section 1 path — sweeping diagonal */}
         <motion.path
-          d="M100 -20 C250 200 900 350 1100 500 C1300 650 200 800 150 1000 C100 1200 950 1300 1050 1500 C1150 1700 300 1800 200 2020"
+          d="M80 -10 C180 80 400 120 600 200 C800 280 1000 320 1120 420 C1180 480 1100 560 900 620 C700 680 400 740 200 820 C100 860 150 920 300 980"
           fill="none"
           stroke="hsl(var(--primary))"
           strokeWidth="2"
           strokeLinecap="round"
           strokeDasharray="8 6"
           style={{ pathLength }}
-          opacity={0.35}
+          opacity={0.3}
+        />
+        {/* Section 2 path — different rhythm, more organic */}
+        <motion.path
+          d="M300 980 C500 1020 700 1000 850 1060 C1000 1120 1100 1180 1050 1260 C1000 1340 800 1380 600 1440 C400 1500 250 1560 200 1650 C150 1740 300 1800 500 1860 C700 1920 900 1960 1100 2020"
+          fill="none"
+          stroke="hsl(var(--primary))"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeDasharray="12 4 4 4"
+          style={{ pathLength }}
+          opacity={0.25}
         />
       </svg>
 
