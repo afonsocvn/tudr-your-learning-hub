@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const ScrollLine = () => {
   const pathRef = useRef<SVGPathElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const path = pathRef.current;
@@ -31,34 +30,27 @@ const ScrollLine = () => {
     }
 
     return () => {
-      if (scrollable) {
-        scrollable.removeEventListener("scroll", onScroll);
-      }
+      if (scrollable) scrollable.removeEventListener("scroll", onScroll);
     };
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className="fixed inset-0 z-30 pointer-events-none"
-    >
+    <div className="fixed inset-0 z-30 pointer-events-none">
       <svg
         className="w-full h-full"
-        viewBox="0 0 100 200"
+        viewBox="0 0 100 600"
         preserveAspectRatio="none"
         fill="none"
       >
         <path
           ref={pathRef}
-          d="M 50 0 C 50 20, 30 30, 30 50 S 70 70, 70 100 S 30 130, 30 150 S 50 180, 50 200"
+          d="M 50 0 C 55 30, 35 50, 40 80 S 60 110, 55 140 S 35 170, 40 200 S 65 230, 58 260 S 38 290, 42 320 S 62 350, 55 380 S 35 410, 42 440 S 60 470, 52 500 S 40 530, 48 560 S 55 580, 50 600"
           stroke="hsl(var(--primary))"
-          strokeWidth="0.15"
+          strokeWidth="0.12"
           strokeLinecap="round"
           fill="none"
-          opacity="0.35"
-          style={{
-            transition: "stroke-dashoffset 0.08s ease-out",
-          }}
+          opacity="0.3"
+          style={{ transition: "stroke-dashoffset 0.06s ease-out" }}
         />
       </svg>
     </div>
