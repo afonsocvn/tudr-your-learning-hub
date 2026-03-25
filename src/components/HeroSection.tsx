@@ -95,7 +95,7 @@ const HeroSection = ({ onFindTutor, onBecomeTutor }: HeroSectionProps) => {
               width={1024}
               height={800}
               loading="lazy"
-              className="relative z-0 w-full h-auto max-h-[70vh] object-contain"
+              className="relative z-0 w-full h-auto max-h-[70vh] object-contain mix-blend-multiply"
             />
           </motion.div>
 
