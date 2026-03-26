@@ -35,22 +35,24 @@ const ScrollLine = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-30 pointer-events-none">
+    <div className="fixed inset-0 z-0 pointer-events-none">
       <svg
         className="w-full h-full"
-        viewBox="0 0 100 600"
+        viewBox="0 0 1000 3000"
         preserveAspectRatio="none"
         fill="none"
       >
+        {/* Natural diagonal brush stroke path — top-left to bottom-right with organic curves */}
         <path
           ref={pathRef}
-          d="M 50 0 C 55 30, 35 50, 40 80 S 60 110, 55 140 S 35 170, 40 200 S 65 230, 58 260 S 38 290, 42 320 S 62 350, 55 380 S 35 410, 42 440 S 60 470, 52 500 S 40 530, 48 560 S 55 580, 50 600"
+          d="M -20 -10 C 80 120, 150 180, 200 300 S 280 500, 350 650 C 400 780, 320 850, 420 1000 S 550 1200, 500 1350 C 480 1450, 560 1550, 620 1700 S 700 1900, 680 2050 C 660 2150, 740 2300, 800 2450 S 880 2600, 920 2750 C 950 2850, 980 2920, 1020 3010"
           stroke="hsl(var(--primary))"
-          strokeWidth="0.12"
+          strokeWidth="1.8"
           strokeLinecap="round"
+          strokeLinejoin="round"
           fill="none"
-          opacity="0.3"
-          style={{ transition: "stroke-dashoffset 0.06s ease-out" }}
+          opacity="0.08"
+          style={{ transition: "stroke-dashoffset 0.08s ease-out" }}
         />
       </svg>
     </div>
