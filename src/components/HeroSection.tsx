@@ -30,7 +30,8 @@ const HeroSection = ({ onFindTutor, onBecomeTutor }: HeroSectionProps) => {
 
       {/* Section 1 — Hero */}
       <section className="hero-brush-section min-h-screen relative overflow-hidden flex flex-col items-center justify-center px-4 md:px-16 lg:px-28 pt-20 pb-10">
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-6 md:gap-10 lg:gap-20 w-full max-w-7xl">
+        <ScrollLine />
+        <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center gap-6 md:gap-10 lg:gap-20 w-full max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
