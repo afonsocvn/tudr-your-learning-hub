@@ -51,7 +51,7 @@ const ScrollLine = () => {
           strokeLinecap="round"
           strokeLinejoin="round"
           fill="none"
-          opacity="0.08"
+          opacity="0.18"
           style={{ transition: "stroke-dashoffset 0.08s ease-out" }}
         />
       </svg>
