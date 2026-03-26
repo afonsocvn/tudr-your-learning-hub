@@ -35,7 +35,7 @@ const ScrollLine = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none">
+    <div className="fixed inset-0 z-10 pointer-events-none">
       <svg
         className="w-full h-full"
         viewBox="0 0 1000 3000"
@@ -51,7 +51,7 @@ const ScrollLine = () => {
           strokeLinecap="round"
           strokeLinejoin="round"
           fill="none"
-          opacity="0.08"
+          opacity="0.18"
           style={{ transition: "stroke-dashoffset 0.08s ease-out" }}
         />
       </svg>
