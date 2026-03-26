@@ -15,7 +15,6 @@ interface HeroSectionProps {
 const HeroSection = ({ onFindTutor, onBecomeTutor }: HeroSectionProps) => {
   return (
     <div className="min-h-screen overflow-y-auto relative hero-scroll-container">
-      <ScrollLine />
 
       {/* Header */}
       <nav className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-4 md:px-12 py-4 md:py-5 bg-foreground/95 backdrop-blur-md">
